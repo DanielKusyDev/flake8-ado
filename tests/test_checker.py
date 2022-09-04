@@ -26,30 +26,33 @@ _CODE_OVER_COMMENTS = [
         3,
     ),
 ]
+_MISSING = "123345"
+_EXISTING = "998877"
 
 
 @pytest.mark.parametrize("code, line_with_comment", _CODE_OVER_COMMENTS)
 @pytest.mark.parametrize(
     "error, comment",
     [
-        (ErrorCode.ADO001_MISSING_ITEM, "# ADO: AB#123345 See the ticket"),
-        (ErrorCode.ADO002_MALFORMED_ITEM_REF, "# ADO: AB: 1234567 See the ticket"),
-        (ErrorCode.ADO002_MALFORMED_ITEM_REF, "# ADO: #1234567 See the ticket"),
-        (ErrorCode.ADO002_MALFORMED_ITEM_REF, "# ADO: ab 1234567 See the ticket"),
-        (ErrorCode.ADO002_MALFORMED_ITEM_REF, "# ADO: 1234567 See the ticket"),
-        (ErrorCode.ADO002_MALFORMED_ITEM_REF, "# ADO: I forgot the number"),
-        (ErrorCode.ADO002_MALFORMED_ITEM_REF, "# ADO: Fix this"),
-        (ErrorCode.ADO002_MALFORMED_ITEM_REF, "# ADO: AB123444"),
-        (ErrorCode.ADO002_MALFORMED_ITEM_REF, "# ADO: ab123444"),
-        (ErrorCode.ADO002_MALFORMED_ITEM_REF, "# ADO: ABblahblah"),
-        (ErrorCode.ADO002_MALFORMED_ITEM_REF, "# ADO: abblahblah"),
-        (ErrorCode.ADO003_CAPITALIZATION, "# ado: AB#112233"),
-        (ErrorCode.ADO003_CAPITALIZATION, "# ADO: ab#112233"),
-        (ErrorCode.ADO003_CAPITALIZATION, "# ado: ab#112233"),
-        (ErrorCode.ADO005_NO_TODO_REF, "# TODO: someone fix this please"),
-        (ErrorCode.ADO005_NO_TODO_REF, "# todo someone fix this please"),
-        (ErrorCode.ADO005_NO_TODO_REF, "# fix it please todo"),
-        (ErrorCode.ADO005_NO_TODO_REF, "# tOdO"),
+        ([ErrorCode.ADO001_MISSING_ITEM], f"# ADO: AB#{_MISSING} See the ticket"),
+        ([ErrorCode.ADO002_MALFORMED_ITEM_REF], "# ADO: AB: 1234567 See the ticket"),
+        ([ErrorCode.ADO002_MALFORMED_ITEM_REF], "# ADO: #1234567 See the ticket"),
+        ([ErrorCode.ADO002_MALFORMED_ITEM_REF], "# ADO: ab 1234567 See the ticket"),
+        ([ErrorCode.ADO002_MALFORMED_ITEM_REF], "# ADO: 1234567 See the ticket"),
+        ([ErrorCode.ADO002_MALFORMED_ITEM_REF], "# ADO: I forgot the number"),
+        ([ErrorCode.ADO002_MALFORMED_ITEM_REF], "# ADO: Fix this"),
+        ([ErrorCode.ADO002_MALFORMED_ITEM_REF], "# ADO: AB123444"),
+        ([ErrorCode.ADO002_MALFORMED_ITEM_REF], "# ADO: ab123444"),
+        ([ErrorCode.ADO002_MALFORMED_ITEM_REF], "# ADO: ABblahblah"),
+        ([ErrorCode.ADO002_MALFORMED_ITEM_REF], "# ADO: abblahblah"),
+        ([ErrorCode.ADO003_CAPITALIZATION], f"# ado: AB#{_EXISTING}"),
+        ([ErrorCode.ADO003_CAPITALIZATION], f"# ADO: ab#{_EXISTING}"),
+        ([ErrorCode.ADO003_CAPITALIZATION], f"# ado: ab#{_EXISTING}"),
+        ([ErrorCode.ADO003_CAPITALIZATION, ErrorCode.ADO001_MISSING_ITEM], f"# ado: ab#{_MISSING}"),
+        ([ErrorCode.ADO005_NO_TODO_REF], "# TODO: someone fix this please"),
+        ([ErrorCode.ADO005_NO_TODO_REF], "# todo someone fix this please"),
+        ([ErrorCode.ADO005_NO_TODO_REF], "# fix it please todo"),
+        ([ErrorCode.ADO005_NO_TODO_REF], "# tOdO"),
     ],
 )
 def test_plugin_with_errors(error: str, comment: str, code: str, line_with_comment: int):
@@ -62,10 +65,10 @@ def test_plugin_with_errors(error: str, comment: str, code: str, line_with_comme
 @pytest.mark.parametrize(
     "comment",
     [
-        "# ADO: AB#112233 See the ticket",
-        "# TODO AB#112233 Something",
-        "# TODO AB#112233",
-        "# This needs to be fixed, todo AB#112233",
+        f"# ADO: AB#{_EXISTING} See the ticket",
+        f"# TODO AB#{_EXISTING} Something",
+        f"# TODO AB#{_EXISTING}",
+        f"# This needs to be fixed, todo AB#{_EXISTING}",
     ],
 )
 def test_plugin_with_proper_code(code: str, comment: str) -> None:
