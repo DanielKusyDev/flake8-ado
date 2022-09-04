@@ -11,24 +11,24 @@ def lint_(input_: str) -> Set[str]:
     return {f"{line_num}: {col_num} {msg}" for line_num, col_num, msg, _ in checker.run()}
 
 
-@pytest.mark.parametrize(
-    "code, line_with_comment",
-    [
-        ("foo = 1", 1),
-        ("def foo():", 1),
-        (
-            """def foo() -> None:
+_CODE_OVER_COMMENTS = [
+    ("foo = 1", 1),
+    ("def foo():", 1),
+    (
+        """def foo() -> None:
             pass""",
-            1,
-        ),
-        (
-            """class FooClass::
+        1,
+    ),
+    (
+        """class FooClass::
                 def foo() -> None:
                 pass""",
-            3,
-        ),
-    ],
-)
+        3,
+    ),
+]
+
+
+@pytest.mark.parametrize("code, line_with_comment", _CODE_OVER_COMMENTS)
 @pytest.mark.parametrize(
     "error, comment",
     [
@@ -56,3 +56,17 @@ def test_checker_with_errors(error: str, comment: str, code: str, line_with_comm
     result = lint_(f"{code} {comment}")
     column = len(code.split("\n")[line_with_comment - 1])
     assert result == {f"{line_with_comment}: {column + 1} {error}"}
+
+
+@pytest.mark.parametrize("code", _CODE_OVER_COMMENTS)
+@pytest.mark.parametrize(
+    "comment",
+    [
+        "# ADO: AB#112233 See the ticket",
+        "# TODO AB#112233 Something",
+        "# TODO AB#112233",
+        "# This needs to be fixed, todo AB#112233",
+    ],
+)
+def test_checker_with_proper_code(code: str, comment: str) -> None:
+    assert lint_(comment) == set()
