@@ -1,3 +1,4 @@
+import abc
 import sys
 from enum import Enum
 from typing import List, Generator, Tuple, Type, Any
@@ -17,7 +18,7 @@ class ErrorCode(str, Enum):
     ADO005_NO_TODO_REF = "ADO004 TODO needs the AOD item reference"
 
 
-class Checker:
+class Plugin:
     name = __name__
     version = __version__
 

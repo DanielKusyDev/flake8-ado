@@ -2,13 +2,13 @@ from typing import Set
 
 import pytest
 
-from flake8_aod import Checker
-from flake8_aod.checker import ErrorCode
+from flake8_aod import Plugin
+from flake8_aod.plugin import ErrorCode
 
 
 def lint_(input_: str) -> Set[str]:
-    checker = Checker(None, input_.split("\n"))
-    return {f"{line_num}: {col_num} {msg}" for line_num, col_num, msg, _ in checker.run()}
+    plugin = Plugin(None, input_.split("\n"))
+    return {f"{line_num}: {col_num} {msg}" for line_num, col_num, msg, _ in plugin.run()}
 
 
 _CODE_OVER_COMMENTS = [
@@ -46,13 +46,13 @@ _CODE_OVER_COMMENTS = [
         (ErrorCode.ADO003_CAPITALIZATION, "# ado: AB#112233"),
         (ErrorCode.ADO003_CAPITALIZATION, "# ADO: ab#112233"),
         (ErrorCode.ADO003_CAPITALIZATION, "# ado: ab#112233"),
-        (ErrorCode.ADO003_CAPITALIZATION, "# TODO: someone fix this please"),
-        (ErrorCode.ADO003_CAPITALIZATION, "# todo someone fix this please"),
-        (ErrorCode.ADO003_CAPITALIZATION, "# fix it please todo"),
-        (ErrorCode.ADO003_CAPITALIZATION, "# tOdO"),
+        (ErrorCode.ADO005_NO_TODO_REF, "# TODO: someone fix this please"),
+        (ErrorCode.ADO005_NO_TODO_REF, "# todo someone fix this please"),
+        (ErrorCode.ADO005_NO_TODO_REF, "# fix it please todo"),
+        (ErrorCode.ADO005_NO_TODO_REF, "# tOdO"),
     ],
 )
-def test_checker_with_errors(error: str, comment: str, code: str, line_with_comment: int):
+def test_plugin_with_errors(error: str, comment: str, code: str, line_with_comment: int):
     result = lint_(f"{code} {comment}")
     column = len(code.split("\n")[line_with_comment - 1])
     assert result == {f"{line_with_comment}: {column + 1} {error}"}
@@ -68,5 +68,5 @@ def test_checker_with_errors(error: str, comment: str, code: str, line_with_comm
         "# This needs to be fixed, todo AB#112233",
     ],
 )
-def test_checker_with_proper_code(code: str, comment: str) -> None:
+def test_plugin_with_proper_code(code: str, comment: str) -> None:
     assert lint_(comment) == set()
