@@ -63,7 +63,7 @@ line_length = 120
 
 [tool.poetry.plugins]
 [tool.poetry.plugins."flake8.extension"]
-AOD = "flake8_aod:Plugin"
+ADO = "flake8_aod:Plugin"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
