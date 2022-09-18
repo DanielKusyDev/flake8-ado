@@ -88,6 +88,3 @@ def test_plugin_with_errors(errors: List[ErrorCode], comment: str, code: str, co
 )
 def test_plugin_with_proper_code(code: str, comment: str) -> None:
     assert lint_(comment) == set()
-
-
-# def test_comment_with_tag_but_without_reference()
