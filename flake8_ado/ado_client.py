@@ -3,13 +3,11 @@ from typing import List
 from azure.devops.connection import Connection
 from msrest.authentication import BasicAuthentication
 
-from settings import ADO_ACCESS_TOKEN, ADO_ORGANIZATION_URL
-
 
 class AzureDevOpsClient:
-    def __init__(self) -> None:
-        credentials = BasicAuthentication("", ADO_ACCESS_TOKEN)
-        connection = Connection(base_url=ADO_ORGANIZATION_URL, creds=credentials)
+    def __init__(self, access_token: str, organization_url: str) -> None:
+        credentials = BasicAuthentication("", access_token)
+        connection = Connection(base_url=organization_url, creds=credentials)
         self._client = connection.clients.get_work_item_tracking_client()
 
     def get_not_existing_item_ids(self, ids: List[str]) -> List[str]:

@@ -1,6 +1,7 @@
 import abc
 from typing import List
 
+from flake8_ado.ado_client import AzureDevOpsClient
 from flake8_ado.domain import FailedCheck, TagAnnotatedLine
 from flake8_ado.scanner import RegexMatcher
 from flake8_ado.validators import CapitalizationValidator, ReferenceValidator, DevOpsItemValidator
@@ -35,13 +36,16 @@ class SyntaxChecker(Checker):
 
 
 class AdoChecker(Checker):
-    def __init__(self, annotated_lines: List[TagAnnotatedLine], regex_matcher: RegexMatcher) -> None:
+    def __init__(
+        self, annotated_lines: List[TagAnnotatedLine], regex_matcher: RegexMatcher, ado_client: AzureDevOpsClient
+    ) -> None:
         self._lines = {}
         self._regex_matcher = regex_matcher
         for line_with_tag in annotated_lines:
             id_ = self._regex_matcher.get_reference_number(line_with_tag.line)
             self._lines[id_] = line_with_tag
+        self._ado_client = ado_client
 
     def check_line(self) -> List[FailedCheck]:
-        validator = DevOpsItemValidator(self._lines, self._regex_matcher)
+        validator = DevOpsItemValidator(self._lines, self._regex_matcher, self._ado_client)
         return [check for check in validator.validate()]

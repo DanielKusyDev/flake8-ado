@@ -3,8 +3,8 @@ name = "flake8_ado"
 version = "0.1.0"
 description = "Flake8 plugin to check comments against AzureDevOps ticket references."
 readme = "README.md"
-homepage = "https://github.com/DanielKusyDev/flake8-aod"
-repository = "https://github.com/DanielKusyDev/flake8-aod"
+homepage = "https://github.com/DanielKusyDev/flake8-ado"
+repository = "https://github.com/DanielKusyDev/flake8-ado"
 keywords = [
     "flake8",
     "aod",
@@ -27,7 +27,6 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.7"
 azure-devops = "^6.0.0-beta.4"
-flake8 = "^5.0.4"
 importlib-metadata = "4"
 pytest-mock = "^3.8.2"
 tox = "^3.26.0"

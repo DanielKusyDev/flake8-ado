@@ -52,10 +52,10 @@ class CapitalizationValidator(RegexValidator):
 
 
 class DevOpsItemValidator(Validator):
-    def __init__(self, lines: Dict[str, TagAnnotatedLine], matcher: RegexMatcher) -> None:
-        self._ado_client = AzureDevOpsClient()
+    def __init__(self, lines: Dict[str, TagAnnotatedLine], matcher: RegexMatcher, ado_client: AzureDevOpsClient) -> None:
         self._lines = lines
         self._regex_matcher = matcher
+        self._ado_client = ado_client
 
     def validate(self) -> Iterator[FailedCheck]:
         for not_existing_id in self._ado_client.get_not_existing_item_ids(list(self._lines)):
