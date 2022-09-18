@@ -25,7 +25,8 @@ class Plugin:
 
     def _get_errors(self, failed_checks: List[FailedCheck]):
         for check in failed_checks:
-            yield *check.as_flake8(), type(self)
+            result = tuple([*check.as_flake8(), type(self)])
+            yield result
 
     def run(self) -> Generator[PluginError, None, None]:
         proper_reference_tags = []
