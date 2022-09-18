@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flake8_ado"
-version = "0.1.0"
+version = "0.2.1"
 description = "Flake8 plugin to check comments against AzureDevOps ticket references."
 readme = "README.md"
 homepage = "https://github.com/DanielKusyDev/flake8-ado"

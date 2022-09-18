@@ -52,7 +52,9 @@ class CapitalizationValidator(RegexValidator):
 
 
 class DevOpsItemValidator(Validator):
-    def __init__(self, lines: Dict[str, TagAnnotatedLine], matcher: RegexMatcher, ado_client: AzureDevOpsClient) -> None:
+    def __init__(
+        self, lines: Dict[str, TagAnnotatedLine], matcher: RegexMatcher, ado_client: AzureDevOpsClient
+    ) -> None:
         self._lines = lines
         self._regex_matcher = matcher
         self._ado_client = ado_client
