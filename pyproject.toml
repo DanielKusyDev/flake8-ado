@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "flake8_aod"
+name = "flake8_ado"
 version = "0.1.0"
 description = "Flake8 plugin to check comments against AzureDevOps ticket references."
 readme = "README.md"
@@ -65,7 +65,7 @@ line_length = 120
 
 [tool.poetry.plugins]
 [tool.poetry.plugins."flake8.extension"]
-ADO = "flake8_aod:Plugin"
+ADO = "flake8_ado:Plugin"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
