@@ -1,9 +1,9 @@
 import abc
 from typing import Dict, Iterator
 
-from flake8_aod.ado_client import AzureDevOpsClient
-from flake8_aod.domain import FailedCheck, ErrorCode, TagAnnotatedLine
-from flake8_aod.scanner import RegexMatcher
+from flake8_ado.ado_client import AzureDevOpsClient
+from flake8_ado.domain import FailedCheck, ErrorCode, TagAnnotatedLine
+from flake8_ado.scanner import RegexMatcher
 
 
 class Validator(abc.ABC):

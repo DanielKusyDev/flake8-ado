@@ -1,9 +1,9 @@
 import abc
 from typing import List
 
-from flake8_aod.domain import FailedCheck, TagAnnotatedLine
-from flake8_aod.scanner import RegexMatcher
-from flake8_aod.validators import CapitalizationValidator, ReferenceValidator, DevOpsItemValidator
+from flake8_ado.domain import FailedCheck, TagAnnotatedLine
+from flake8_ado.scanner import RegexMatcher
+from flake8_ado.validators import CapitalizationValidator, ReferenceValidator, DevOpsItemValidator
 
 
 class Checker(abc.ABC):

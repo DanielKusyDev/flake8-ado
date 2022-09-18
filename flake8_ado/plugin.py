@@ -2,16 +2,16 @@ import sys
 from typing import Generator, Tuple, Type, Any
 from typing import List
 
-from flake8_aod.checkers import SyntaxChecker, AdoChecker
-from flake8_aod.domain import FailedCheck, TagAnnotatedLine
-from flake8_aod.scanner import RegexMatcher
+from flake8_ado.checkers import SyntaxChecker, AdoChecker
+from flake8_ado.domain import FailedCheck, TagAnnotatedLine
+from flake8_ado.scanner import RegexMatcher
 
 if sys.version_info < (3, 8):
     import importlib_metadata as metadata
 else:
     from importlib import metadata
 
-__version__ = metadata.version("flake8_aod")
+__version__ = metadata.version("flake8_ado")
 
 PluginError = Tuple[int, int, str, Type[Any]]
 
