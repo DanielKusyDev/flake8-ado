@@ -4,8 +4,8 @@ from typing import Set, List
 import pytest
 from pytest_mock import MockFixture
 
-from flake8_aod import Plugin
-from flake8_aod.domain import ErrorCode
+from flake8_ado import Plugin
+from flake8_ado.domain import ErrorCode
 
 
 def lint_(input_: str) -> Set[str]:
@@ -39,7 +39,7 @@ class ADOClientStub:
 
 @pytest.fixture(autouse=True)
 def mock_ado_client(mocker: MockFixture) -> None:
-    mocker.patch("flake8_aod.validators.AzureDevOpsClient", new=ADOClientStub)
+    mocker.patch("flake8_ado.validators.AzureDevOpsClient", new=ADOClientStub)
 
 
 @pytest.mark.parametrize("code", _CODE_OVER_COMMENTS)
