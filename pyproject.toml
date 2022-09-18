@@ -29,6 +29,7 @@ python = "^3.7"
 azure-devops = "^6.0.0-beta.4"
 flake8 = "^5.0.4"
 importlib-metadata = "4"
+pytest-mock = "^3.8.2"
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.10.1"
