@@ -10,6 +10,8 @@ from flake8_ado.domain import ErrorCode
 
 def lint_(input_: str) -> Set[str]:
     plugin = Plugin(None, input_.split("\n"))
+    plugin.organization_url = ""  # calling Plugin.run() won't trigger option parsing
+    plugin.access_token = ""
     return {f"{line_num}: {col_num} {msg}" for line_num, col_num, msg, _ in plugin.run()}
 
 
@@ -39,7 +41,7 @@ class ADOClientStub:
 
 @pytest.fixture(autouse=True)
 def mock_ado_client(mocker: MockFixture) -> None:
-    mocker.patch("flake8_ado.validators.AzureDevOpsClient", new=ADOClientStub)
+    mocker.patch("flake8_ado.plugin.AzureDevOpsClient", new=ADOClientStub)
 
 
 @pytest.mark.parametrize("code", _CODE_OVER_COMMENTS)
