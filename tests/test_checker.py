@@ -16,6 +16,16 @@ _MISSING = "123345"
 _EXISTING = "998877"
 _ADO_TAG_OFFSET = len(" # ADO: ")
 _TODO_TAG_OFFSET = len(" # TODO: ")
+_CODE_OVER_COMMENTS = [
+    "foo = 1",
+    (
+        # fmt: off
+            "class FooClass:\n" 
+            "    def foo() -> None:\n"
+            "        pass"
+        # fmt: on
+    ),
+]
 
 
 @pytest.fixture(autouse=True)
@@ -26,19 +36,7 @@ def mock_ado_client(mocker: MockFixture) -> None:
     mocker.patch("flake8_aod.validators.AzureDevOpsClient.get_not_existing_item_ids", new=not_existing_items_mock)
 
 
-@pytest.mark.parametrize(
-    "code",
-    [
-        "foo = 1",
-        (
-            # fmt: off
-            "class FooClass:\n" 
-            "    def foo() -> None:\n"
-            "        pass"
-            # fmt: on
-        ),
-    ],
-)
+@pytest.mark.parametrize("code", _CODE_OVER_COMMENTS)
 @pytest.mark.parametrize(
     "errors, comment, column_of_error_offset",
     [
@@ -72,3 +70,20 @@ def test_plugin_with_errors(errors: List[ErrorCode], comment: str, code: str, co
         column = len(original_line) + column_of_error_offset
         expected = {f"{line_number + 1}: {column} {e.value}" for e in errors}
         assert linting_result == expected
+
+
+@pytest.mark.parametrize("code", _CODE_OVER_COMMENTS)
+@pytest.mark.parametrize(
+    "comment",
+    [
+        f"# ADO: AB#{_EXISTING} See the ticket",
+        f"# TODO AB#{_EXISTING} Something",
+        f"# TODO AB#{_EXISTING}",
+        f"# This needs to be fixed, todo AB#{_EXISTING}",
+        "# todo someone fix this please",
+        "# fix it please todo",
+        "# tOdO",
+    ],
+)
+def test_plugin_with_proper_code(code: str, comment: str) -> None:
+    assert lint_(comment) == set()

@@ -58,7 +58,7 @@ class DevOpsItemValidator(Validator):
         self._regex_matcher = matcher
 
     def validate(self) -> Iterator[FailedCheck]:
-        for not_existing_id in self._ado_client.get_not_exiting_item_ids(list(self._lines)):
+        for not_existing_id in self._ado_client.get_not_existing_item_ids(list(self._lines)):
             item = self._lines[not_existing_id]
             column = self._regex_matcher.get_tag_match(item.line, item.tag).regs[0][-1]
             yield FailedCheck(
