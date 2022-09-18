@@ -1,8 +1,8 @@
 import re
 from functools import lru_cache
-from typing import List, Set
+from typing import List
 
-_ANNOTATION_PATTERN = re.compile(r"# (ado: )|(todo: )", flags=re.IGNORECASE)
+_ANNOTATION_PATTERN = re.compile(r"# ((ado: )|(todo: )).*$", flags=re.IGNORECASE)
 
 
 class RegexMatcher:
