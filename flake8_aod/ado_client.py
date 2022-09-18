@@ -3,7 +3,7 @@ from typing import List
 from azure.devops.connection import Connection
 from msrest.authentication import BasicAuthentication
 
-from tests.settings import ADO_ACCESS_TOKEN, ADO_ORGANIZATION_URL
+from settings import ADO_ACCESS_TOKEN, ADO_ORGANIZATION_URL
 
 
 class AzureDevOpsClient:

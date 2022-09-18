@@ -29,12 +29,17 @@ _CODE_OVER_COMMENTS = [
 ]
 
 
-@pytest.fixture(autouse=True)
-def mock_ado_client(mocker: MockFixture) -> None:
-    def not_existing_items_mock(self, ids: List[str]) -> List[str]:
+class ADOClientStub:
+    def __init__(self, *args, **kwargs) -> None:
+        pass
+
+    def get_not_existing_item_ids(self, ids: List[str]) -> List[str]:
         return [_MISSING] if _MISSING in ids else []
 
-    mocker.patch("flake8_aod.validators.AzureDevOpsClient.get_not_existing_item_ids", new=not_existing_items_mock)
+
+@pytest.fixture(autouse=True)
+def mock_ado_client(mocker: MockFixture) -> None:
+    mocker.patch("flake8_aod.validators.AzureDevOpsClient", new=ADOClientStub)
 
 
 @pytest.mark.parametrize("code", _CODE_OVER_COMMENTS)
