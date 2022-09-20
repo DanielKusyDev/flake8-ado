@@ -32,7 +32,7 @@ pip install flake8 flake8-ado
 | ADO001 | Missing ADO item                                  |
 | ADO002 | Malformed item reference                          |
 | ADO003 | Wrong capitalization (ADO and AB must be capital) |
-| ADO004 | TODO needs the AOD item reference                 |
+| ADO004 | TODO needs the ADO item reference                 |
 
 ## Contribution
 Feel free to modify the code. To start with the development you need poetry.
