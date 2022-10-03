@@ -1,8 +1,8 @@
 # flake8-ado
 
 Flake8 extension to check comments against Azure DevOps tickets. The plugin checks that:
-1. Every comment with a reference to an ADO item (`AB#12345`) has a corresponding item.
-2. ADO items are references in a proper format (`ADO: AB#12345`)
+1. For every comment with a reference to an ADO item (`AB#12345`), there is an actual ticket in place.
+2. ADO items are referenced in a proper format (`ADO: AB#12345`)
 3. TODO items with ADO annotation have assigned item (`TODO: AB#12345`).
 
 Example:
@@ -24,7 +24,7 @@ pip install flake8 flake8-ado
 
 ## Arguments
 - `--ado-access-token` - Valid AzureDevOps token.
-- `ado_organization_url` - AzureDevOps organization url e.g. https://dev.azure.com/foo.
+- `--ado_organization_url` - AzureDevOps organization url e.g. https://dev.azure.com/foo.
 
 ## Errors
 | Code   | Message                                           |
