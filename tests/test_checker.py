@@ -1,5 +1,5 @@
 # flake8: noqa
-from typing import Set, List
+from typing import List, Set
 
 import pytest
 from pytest_mock import MockFixture

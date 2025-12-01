@@ -2,7 +2,7 @@ import abc
 from typing import Dict, Iterator
 
 from flake8_ado.ado_client import AzureDevOpsClient
-from flake8_ado.domain import FailedCheck, ErrorCode, TagAnnotatedLine
+from flake8_ado.domain import ErrorCode, FailedCheck, TagAnnotatedLine
 from flake8_ado.scanner import RegexMatcher
 
 

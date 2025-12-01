@@ -1,9 +1,8 @@
 import sys
-from typing import Generator, Tuple, Type, Any
-from typing import List
+from typing import Any, Generator, List, Tuple, Type
 
 from flake8_ado.ado_client import AzureDevOpsClient
-from flake8_ado.checkers import SyntaxChecker, AdoChecker
+from flake8_ado.checkers import AdoChecker, SyntaxChecker
 from flake8_ado.domain import FailedCheck, TagAnnotatedLine
 from flake8_ado.scanner import RegexMatcher
 

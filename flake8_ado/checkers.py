@@ -4,7 +4,7 @@ from typing import List
 from flake8_ado.ado_client import AzureDevOpsClient
 from flake8_ado.domain import FailedCheck, TagAnnotatedLine
 from flake8_ado.scanner import RegexMatcher
-from flake8_ado.validators import CapitalizationValidator, ReferenceValidator, DevOpsItemValidator
+from flake8_ado.validators import CapitalizationValidator, DevOpsItemValidator, ReferenceValidator
 
 
 class Checker(abc.ABC):
